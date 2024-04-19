@@ -1,13 +1,11 @@
-import { PageCreateUser } from "./pages/page-create-user";
-import { PageLogin } from "./pages/page-login";
-import { PageProducts } from "./pages/page-products";
+import { Routes } from "./route/routes";
 
 export function App() {
 
  
   return (
     <>
-       <PageProducts/>
+      <Routes/>
     </>
   );
 }

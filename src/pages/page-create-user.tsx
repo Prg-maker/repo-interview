@@ -1,6 +1,6 @@
 import reactSvg from "../assets/react.svg";
 
-import { Mail, Pencil, Phone, User } from "lucide-react";
+import {  Pencil, Phone, User } from "lucide-react";
 import { InputForm } from "../components/form/input-form";
 import { LabelForm } from "../components/form/label-form";
 
@@ -69,7 +69,7 @@ export function PageCreateUser(){
       <footer className="mt-5 mb-5 text-center">
         <p className="text-sm text-[#7C7C8A]">
           Já tem conta?{" "}
-          <a href="" className="text-[#81D8F7] underline">
+          <a href="/login" className="text-[#81D8F7] underline">
             Entrar agora
           </a>
           .

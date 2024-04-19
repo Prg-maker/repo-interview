@@ -7,19 +7,59 @@ import { LabelForm } from "../components/form/label-form";
 
 import { LockKeyhole } from "lucide-react";
 import { Checkbox } from "@radix-ui/react-checkbox";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { ButtonForm } from "../components/form/button-form";
 
+
+
+import axios from 'axios';
+
+import { redirect } from "react-router-dom";
 
 
 
 export function PageLogin() {
   const [isCheck, setIsCheck] = useState(false);
   
+  const [textNumber , setTextNumber] = useState("")
+  const [password , setPassword] = useState("")
+  const [token , setToken] = useState('')
+
+  async function handleLogin(event:FormEvent){
+    event.preventDefault()
+    
+    if(password == "" || textNumber == "") return;
+
+    const options = {
+      method: 'POST',
+      url: 'https://interview.t-alpha.com.br/api/auth/login',
+      headers: {'Content-Type': 'application/json'},
+      data: {taxNumber: textNumber, password: password}
+    };
+
+    try{
+      const { data } = await axios.request(options);
+      console.log(data.data.token)
+      setToken(data.data.token)
+
+      localStorage.setItem('token' , token) //12345678900', password: '123456'
+      if(token){
+        window.location.href = "/produts"
+      }
+      
+
+
+    }catch(e){
+      console.error(e)
+    }
+
+
+  }
    
   function handleCheckIn() {
     console.log(isCheck);
     setIsCheck(!isCheck);
+    
   }
 
   return (
@@ -35,15 +75,17 @@ export function PageLogin() {
         <form>
           <div className="flex flex-col gap-5">
             <div className="flex flex-col gap-3">
-              <LabelForm>Sua textNumber</LabelForm>
-              <InputForm type="text" placeholder="Digite seu textNumber">
+              <LabelForm>Seu CPF OU CNPJ</LabelForm>
+              
+              <InputForm value={textNumber} onChange={e => setTextNumber(e.target.value)} type="text" placeholder="Digite seu textNumber" >
                 <Mail className="size-6 text-[#7C7C8A]" />
               </InputForm>
+
             </div>
 
             <div className="flex flex-col gap-3">
               <LabelForm>Sua Senha</LabelForm>
-              <InputForm type="password" placeholder="***********">
+              <InputForm   value={password} onChange={e => setPassword(e.target.value)} type="password" placeholder="***********">
                 <LockKeyhole className="size-6 text-[#7C7C8A]" />
               </InputForm>
             </div>
@@ -62,14 +104,14 @@ export function PageLogin() {
             </strong>
           </label>
 
-          <ButtonForm>Entrar na plataforma</ButtonForm>
+          <ButtonForm onClick={handleLogin}>Entrar na plataforma</ButtonForm>
         </form>
       </main>
 
       <footer className="mt-20 text-center">
         <p className="text-sm text-[#7C7C8A]">
           Não possui conta?{" "}
-          <a href="" className="text-[#81D8F7] underline">
+          <a href="/register" className="text-[#81D8F7] underline">
             Crie uma agora
           </a>
           .
