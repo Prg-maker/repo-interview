@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { InputForm } from "../components/form/input-form";
 import { MoveLeft } from "lucide-react";
 import { toast } from "sonner";
+import {useNavigate} from 'react-router-dom'
 
 interface ProductCardProps {
 
@@ -17,6 +18,7 @@ interface ProductCardProps {
   
 
 export function PageProduct(){
+    const navigate = useNavigate()
 
       // Obtém o token de autenticação do localStorage
     const token = localStorage.getItem('token')
@@ -25,7 +27,7 @@ export function PageProduct(){
 
      // Redireciona para a página de login se não houver token
     if (!token) {
-        window.location.href = "/";
+        navigate("/");
     }
 
     
@@ -59,7 +61,7 @@ export function PageProduct(){
    
     // Função para navegar de volta para a página de listagem de produtos
     function handleBackPage(){
-        window.location.href = "/products"
+        navigate("/products")
 
     }
 
@@ -80,7 +82,7 @@ export function PageProduct(){
             await axios.request(options);
             toast.success("Deletado com sucesso.")            
             setTimeout(()=> {
-            window.location.href = "/products"
+            navigate("/products")
 
             } , 2000)
 

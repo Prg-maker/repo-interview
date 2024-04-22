@@ -5,6 +5,7 @@ import { Product } from "../components/products/product";
 import { useEffect, useState } from "react";
 import { CreateNewProject } from "../components/products/create-new-project";
 import { Frown } from "lucide-react";
+import {useNavigate} from 'react-router-dom'
 
 // Interface para descrever a estrutura de um produto
 interface ProductCardProps {
@@ -21,6 +22,8 @@ interface ProductCardProps {
 
 // Página de listagem de produtos
 export function PageProducts() {
+  const navigate = useNavigate()
+
   // Estado para armazenar o token de autenticação
   const [token , setToken] = useState(localStorage.getItem("token")) 
  // Recupera as informações do usuário do localStorage
@@ -31,12 +34,12 @@ export function PageProducts() {
 
  // Redireciona para a página de login se não houver token
   if (!token) {
-    window.location.href = "/";
+    navigate("/");
   }
 
   // Efeito para verificar se o token está vazio e redirecionar para a página de login
   useEffect(() => {
-    if(token=="")location.href="/"
+    if(token=="")navigate("/")
   }, [token]);
 
  // Função para fazer logout

@@ -11,10 +11,10 @@ import { FormEvent, useState } from "react";
 import { ButtonForm } from "../components/form/button-form";
 import {toast}from 'sonner'
 
-
+import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
-
+const navigate = useNavigate()
 
 
 export function PageLogin() {
@@ -49,7 +49,7 @@ export function PageLogin() {
       toast.success("Login concluído com sucesso.")  
       
       setTimeout(()=> {
-        window.location.href = "/products"
+        navigate("/products")
       }, 2000)
 
 

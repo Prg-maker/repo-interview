@@ -9,8 +9,12 @@ import { ButtonForm } from "../components/form/button-form";
 
 import axios from "axios";
 import { FormEvent, useState } from "react";
+import { toast } from "sonner";
+import {useNavigate} from 'react-router-dom'
 
 export function PageCreateUser() {
+  const navigate = useNavigate()
+  
   const [nome, setNome] = useState("");
   const [password, setPassword] = useState("");
   const [cadastro, setCadastro] = useState("");
@@ -20,7 +24,7 @@ export function PageCreateUser() {
   async function handleSingUp(event: FormEvent) {
     event.preventDefault();
     if (!nome || !password || !cadastro || !mail || !phone) {
-      return window.alert("erro");
+      return toast("Algum campos está vázio")
     }
 
     const options = {
@@ -40,18 +44,18 @@ export function PageCreateUser() {
       const response = await axios.request(options)
       
       const message = response.data.message
-      window.alert(message)
+    
 
       if(message == "Usuário já cadastrado")return;
 
       setTimeout(()=> {
-        window.location.href = "/"
+        navigate("/")
       } , 2000)
 
     }catch(e){
-      window.alert("Erro ao criar um usuário")
+      toast("Erro ao criar um usuário.")
 
-      console.error(e)
+      
     }
 
   }
