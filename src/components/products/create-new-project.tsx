@@ -36,7 +36,7 @@ export function CreateNewProject() {
       };
 
       try {
-        const { data } = await axios.request(options);
+        await axios.request(options);
         setNome("")
         setDescription("")
         SetPrice("")
