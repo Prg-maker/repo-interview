@@ -1,11 +1,15 @@
 import { Routes } from "./route/routes";
 
-export function App() {
 
- 
+/**
+ * Componente principal da aplicação.
+ * Renderiza o componente de rotas.
+ */
+
+export function App() {
   return (
     <>
-      <Routes/>
+      <Routes />
     </>
   );
 }

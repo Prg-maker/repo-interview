@@ -9,12 +9,11 @@ import { LockKeyhole } from "lucide-react";
 import { Checkbox } from "@radix-ui/react-checkbox";
 import { FormEvent, useState } from "react";
 import { ButtonForm } from "../components/form/button-form";
-
+import {toast}from 'sonner'
 
 
 import axios from 'axios';
 
-import { redirect } from "react-router-dom";
 
 
 
@@ -23,12 +22,14 @@ export function PageLogin() {
   
   const [textNumber , setTextNumber] = useState("")
   const [password , setPassword] = useState("")
-  const [token , setToken] = useState('')
 
   async function handleLogin(event:FormEvent){
     event.preventDefault()
     
-    if(password == "" || textNumber == "") return;
+    if(password == "" || textNumber == ""){
+      return toast.error("Espaços vazios. Digite seu CPF e sua senha");
+
+    };
 
     const options = {
       method: 'POST',
@@ -38,26 +39,28 @@ export function PageLogin() {
     };
 
     try{
-      const { data } = await axios.request(options);
-      console.log(data.data.token)
-      setToken(data.data.token)
 
-      localStorage.setItem('token' , token) //12345678900', password: '123456'
-      if(token){
-        window.location.href = "/produts"
-      }
+      const { data } = await axios.request(options);
       
+      
+       localStorage.setItem('token' , data.data.token) 
+       localStorage.setItem('user' , JSON.stringify(data.data.user)) 
+       
+      toast.success("Login concluído com sucesso.")  
+      
+      setTimeout(()=> {
+        window.location.href = "/products"
+      }, 2000)
 
 
     }catch(e){
-      console.error(e)
+      return toast.error("Usuário não existe ou erro na digitação.");
     }
 
 
   }
    
   function handleCheckIn() {
-    console.log(isCheck);
     setIsCheck(!isCheck);
     
   }
