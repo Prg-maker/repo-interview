@@ -77,7 +77,7 @@ export function PageProduct(){
 
 
         try {
-            const response = await axios.request(options);
+            await axios.request(options);
             toast.success("Deletado com sucesso.")            
             setTimeout(()=> {
             window.location.href = "/products"
@@ -126,7 +126,7 @@ export function PageProduct(){
 
 
           try{
-            const { data } = await axios.request(options);
+             await axios.request(options);
             toast.success("Atualizado com sucesso.")
 
         }catch(e){

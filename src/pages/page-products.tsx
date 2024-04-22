@@ -1,5 +1,4 @@
 import axios from "axios";
-import * as Dialog from "@radix-ui/react-dialog";
 
 
 import { Product } from "../components/products/product";
