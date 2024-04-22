@@ -14,10 +14,11 @@ import {toast}from 'sonner'
 import {useNavigate} from 'react-router-dom'
 import axios from 'axios';
 
-const navigate = useNavigate()
 
 
 export function PageLogin() {
+  const navigate = useNavigate()
+
   const [isCheck, setIsCheck] = useState(false);
   
   const [textNumber , setTextNumber] = useState("")
